@@ -32,10 +32,16 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
     
+    # - name: Set Account ID
+    #   id: account
+    #   run: |
+    #     echo "::set-output name=ACCOUNT_ID::$(aws sts get-caller-identity --query Account --output text)"
     - name: Set Account ID
       id: account
       run: |
-        echo "::set-output name=ACCOUNT_ID::$(aws sts get-caller-identity --query Account --output text)"
+        ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+        echo "ACCOUNT_ID=$ACCOUNT_ID" >> $GITHUB_OUTPUT
+        echo "AWS Account ID: $ACCOUNT_ID"
     
     # Copy and delete terraform.tfstate files from s3 bucket
     - name: Retrieve tfstate
