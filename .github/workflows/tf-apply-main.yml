@@ -32,10 +32,17 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    # - name: Set Account ID
+    #   id: account
+    #   run: |
+    #     echo "::setOutput name=ACCOUNT_ID::$(aws sts get-caller-identity --query Account --output text)"
+
     - name: Set Account ID
       id: account
       run: |
-        echo "::setOutput name=ACCOUNT_ID::$(aws sts get-caller-identity --query Account --output text)"
+        ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+        echo "ACCOUNT_ID=$ACCOUNT_ID" >> $GITHUB_OUTPUT
+        echo "AWS Account ID: $ACCOUNT_ID"
 
     - name: Check previous AWSGoat Deployment
       id: check 
