@@ -3266,7 +3266,7 @@ resource "aws_s3_object" "upload_folder_prod" {
   for_each     = fileset("./resources/s3/webfiles/", "**")
   bucket       = aws_s3_bucket.bucket_upload.bucket
   key          = each.value
-  acl          = "public-read"
+  #acl          = "public-read"
   source       = "./resources/s3/webfiles/${each.value}"
   content_type = lookup(local.content_type_map, regex("\\.(?P<extension>[A-Za-z0-9]+)$", each.value).extension, "application/octet-stream")
   depends_on   = [aws_s3_bucket.bucket_upload, null_resource.file_replacement_api_gw]
@@ -3334,7 +3334,7 @@ resource "aws_s3_object" "upload_folder_dev" {
   for_each     = fileset("./resources/s3/webfiles/build/", "**")
   bucket       = aws_s3_bucket.dev.bucket
   key          = each.value
-  acl          = "public-read"
+  #acl          = "public-read"
   source       = "./resources/s3/webfiles/build/${each.value}"
   content_type = lookup(local.content_type_map, regex("\\.(?P<extension>[A-Za-z0-9]+)$", each.value).extension, "application/octet-stream")
   depends_on   = [aws_s3_bucket.dev, null_resource.file_replacement_ec2_ip]
@@ -3344,7 +3344,7 @@ resource "aws_s3_object" "upload_folder_dev_2" {
   for_each     = fileset("./resources/s3/shared/", "**")
   bucket       = aws_s3_bucket.dev.bucket
   key          = each.value
-  acl          = "public-read"
+  #acl          = "public-read"
   source       = "./resources/s3/shared/${each.value}"
   content_type = lookup(local.content_type_map, regex("\\.(?P<extension>[A-Za-z0-9]+)$", each.value).extension, "application/octet-stream")
   depends_on   = [aws_s3_bucket.dev, null_resource.file_replacement_ec2_ip]
@@ -3393,7 +3393,7 @@ resource "aws_s3_bucket_acl" "bucket_temp" {
 
 resource "aws_s3_object" "upload_temp_object" {
   for_each     = fileset("./resources/s3/webfiles/build/", "**")
-  acl          = "public-read"
+  #acl          = "public-read"
   bucket       = aws_s3_bucket.bucket_temp.bucket
   key          = each.value
   source       = "./resources/s3/webfiles/build/${each.value}"
@@ -3403,7 +3403,7 @@ resource "aws_s3_object" "upload_temp_object" {
 
 resource "aws_s3_object" "upload_temp_object_2" {
   for_each     = fileset("./resources/s3/shared/", "**")
-  acl          = "public-read"
+  #acl          = "public-read"
   bucket       = aws_s3_bucket.bucket_temp.bucket
   key          = each.value
   source       = "./resources/s3/shared/${each.value}"
