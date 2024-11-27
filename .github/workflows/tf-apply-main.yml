@@ -35,7 +35,7 @@ jobs:
     - name: Set Account ID
       id: account
       run: |
-        echo "::set-output name=ACCOUNT_ID::$(aws sts get-caller-identity --query Account --output text)"
+        echo "::setOutput name=ACCOUNT_ID::$(aws sts get-caller-identity --query Account --output text)"
 
     - name: Check previous AWSGoat Deployment
       id: check 
