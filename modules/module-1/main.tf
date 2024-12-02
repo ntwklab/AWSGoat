@@ -3467,7 +3467,8 @@ resource "aws_security_group" "goat_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    #cidr_blocks = ["0.0.0.0/0"]
+    prefix_list_ids = ["pl-fca24795"]
   }
   egress {
     from_port   = 0
